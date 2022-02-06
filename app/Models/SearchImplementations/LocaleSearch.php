@@ -29,9 +29,9 @@ class LocaleSearch implements SearchRepository
 
     private function searchOnElasticsearch(string $query = ''): array
     {
-        $model = new Locale;
+        $model = new Locale();
 
-        $items = $this->elasticsearch->search([
+        return $this->elasticsearch->search([
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
             'body' => [
@@ -42,8 +42,6 @@ class LocaleSearch implements SearchRepository
                 ],
             ],
         ]);
-
-        return $items;
     }
 
     private function buildCollection(array $items): Collection
@@ -55,4 +53,4 @@ class LocaleSearch implements SearchRepository
                 return array_search($locale->getKey(), $ids);
             });
     }
-} 
+}

@@ -4,16 +4,6 @@ namespace App\Search;
 
 trait Searchable
 {
-    public static function bootSearchable()
-    {
-        // This makes it easy to toggle the search feature flag
-        // on and off. This is going to prove useful later on
-        // when deploy the new search engine to a live app.
-        if (config('services.search.enabled')) {
-            static::observe(ElasticSearchObserver::class);
-        }
-    }
-
     public function getSearchIndex()
     {
         return $this->getTable();
@@ -34,5 +24,17 @@ trait Searchable
         // to a searchable array allows us to customize the
         // data that's going to be searchable per model.
         return $this->toArray();
+    }
+
+    public static function bootSearchable()
+    {
+        // This makes it easy to toggle the search feature flag
+        // on and off. This is going to prove useful later on
+        // when deploy the new search engine to a live app.
+        if (!config('services.search.enabled')) {
+            return;
+        }
+
+        static::observe(ElasticSearchObserver::class);
     }
 }

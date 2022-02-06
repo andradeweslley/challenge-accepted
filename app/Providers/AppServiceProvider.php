@@ -35,15 +35,6 @@ class AppServiceProvider extends ServiceProvider
         $this->bindSearchClient();
     }
 
-    private function bindSearchClient()
-    {
-        $this->app->bind(Client::class, function ($app) {
-            return ClientBuilder::create()
-                ->setHosts($app['config']->get('services.search.hosts'))
-                ->build();
-        });
-    }
-
     /**
      * Bootstrap any application services.
      *
@@ -52,5 +43,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // code...
+    }
+
+    private function bindSearchClient()
+    {
+        $this->app->bind(Client::class, function ($app) {
+            return ClientBuilder::create()
+                ->setHosts($app['config']->get('services.search.hosts'))
+                ->build();
+        });
     }
 }

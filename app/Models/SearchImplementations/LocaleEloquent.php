@@ -13,4 +13,4 @@ class LocaleEloquent implements SearchRepository
         return Locale::where('name', 'LIKE', "%{$term}%")
             ->get();
     }
-} 
+}

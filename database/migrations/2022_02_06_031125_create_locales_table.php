@@ -15,7 +15,7 @@ class CreateLocalesTable extends Migration
     {
         Schema::create('locales', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('name');
             $table->string('state');
             $table->string('latitude');

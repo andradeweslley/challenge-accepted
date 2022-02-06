@@ -3,35 +3,30 @@
 namespace App\Models;
 
 use App\Search\Searchable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Locale
- * 
  * @property int $id
  * @property string $name
  * @property string $state
  * @property string $latitude
  * @property string $longitude
- * 
- * @property Collection|Weather[] $weather
  *
- * @package App\Models
+ * @property \Illuminate\Database\Eloquent\Collection|array<\App\Models\Weather> $weather
  */
 class Locale extends Model
 {
     use Searchable;
 
-    protected $table = 'locales';
     public $timestamps = false;
     public static $snakeAttributes = false;
+    protected $table = 'locales';
 
     protected $fillable = [
         'name',
         'state',
         'latitude',
-        'longitude'
+        'longitude',
     ];
 
     public function weather()
