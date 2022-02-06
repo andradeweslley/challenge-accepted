@@ -22,8 +22,6 @@ class LocaleSearch implements SearchRepository
     {
         $items = $this->searchOnElasticsearch($query);
 
-        dd($items);
-
         return $this->buildCollection($items);
     }
 

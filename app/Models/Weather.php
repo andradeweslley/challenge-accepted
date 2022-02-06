@@ -31,7 +31,7 @@ class Weather extends Model
     ];
 
     protected $dates = [
-        'date',
+        'date' => 'Y-m-d',
     ];
 
     protected $hidden = [

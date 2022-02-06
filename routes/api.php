@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\WeatherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-    Route::get('welcome', function () {
-        return response()->json(['status' => 'OK']);
+    Route::get('heartbeat', function () {
+        return response()->json(['status' => 'OK', 'message' => 'Heart is beating']);
     });
 
     Route::apiResources([
         'locales' => LocaleController::class,
+        'weather' => WeatherController::class,
     ]);
 });

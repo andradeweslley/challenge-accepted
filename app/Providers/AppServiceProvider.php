@@ -6,6 +6,7 @@ use App\Models\SearchImplementations\LocaleEloquent;
 use App\Models\SearchImplementations\LocaleSearch;
 use App\Repository\SearchRepository;
 use Elasticsearch\ClientBuilder;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -42,9 +43,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // code...
+        JsonResource::withoutWrapping();
     }
 
+    /**
+     * Bind Elasticsearch\ClientBuilder to Elasticsearch\Client
+     * 
+     * @return void
+     */
     private function bindSearchClient()
     {
         $this->app->bind(Client::class, function ($app) {
