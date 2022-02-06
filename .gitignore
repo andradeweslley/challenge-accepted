@@ -37,10 +37,6 @@
 /web/bundles/
 /web/uploads/
 
-# PHPUnit
-/app/phpunit.xml
-/phpunit.xml
-
 # Build data
 /build/
 
@@ -83,6 +79,8 @@ nbdist/
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
+.vscode
+.editorconfig
 .idea/
 .idea/workspace.xml
 .idea/tasks.xml
@@ -197,6 +195,7 @@ Temporary Items
 .apdisk
 ### Vagrant template
 .vagrant/
+
 ### Node template
 # Logs
 logs
@@ -236,6 +235,9 @@ jspm_packages
 
 # Optional eslint cache
 .eslintcache
+
+# Optional phpcs cache
+.phpcs-cache
 
 # Optional REPL history
 .node_repl_history
@@ -298,8 +300,18 @@ storage/*.key
 .env.php
 .env
 
+# Laravel 8 specific
+public/hot
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+tests/_output
+
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+
 ### Eclipse template
 
 .metadata
@@ -437,6 +449,7 @@ xcuserdata/
 *.pidb
 *.resources
 test-results/
+
 ### Composer template
 composer.phar
 /vendor/

@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+    clima-tempo:
+        build:
+            context: .
+            dockerfile:  Dockerfile
+        container_name: clima-tempo
+        hostname: clima-tempo
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - "8000:8000"
+        networks:
+            - default
+
+volumes:
+    mysql-data:
+
+networks:
+    default:
