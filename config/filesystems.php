@@ -44,9 +44,9 @@ return [
 
         'base' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL') . '/storage',
-            'visibility' => 'public',
+            'root' => storage_path('app/base'),
+            'url' => env('APP_URL') . '/storage/base',
+            'visibility' => 'private',
         ],
 
         's3' => [

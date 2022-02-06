@@ -17,7 +17,7 @@
         <!-- Don't check for missing namespace in migrations -->
         <exclude-pattern>*/database/migrations/*.php</exclude-pattern>
         <!-- Don't check for missing namespace in seeds -->
-        <exclude-pattern>*/database/seeds/*.php</exclude-pattern>
+        <exclude-pattern>*/database/seeders/*.php</exclude-pattern>
     </rule>
 
     <rule ref="Squiz.Classes.ClassFileName.NoMatch">
