@@ -29,6 +29,11 @@ class Locale extends Model
         'longitude',
     ];
 
+    /**
+     * Relation with weather
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Weather>
+     */
     public function weather()
     {
         return $this->hasMany(Weather::class);

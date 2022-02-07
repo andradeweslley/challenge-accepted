@@ -16,13 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Retrieve data from locales
+        // Retrieve data from json
         $allData = json_decode(Storage::disk('base')->get('weather.json'), true);
 
-        // Input data into database
+        if (empty($allData) || !is_array($allData)) {
+            return;
+        }
+
         foreach ($allData as $data) {
             // Retrieve data from locale and adds in table
             $locale = $this->storeLocale($data['locale']);
+
+            if (empty($data['weather']) || !is_array($data['weather'])) {
+                continue;
+            }
 
             foreach ($data['weather'] as $weatherData) {
                 // Retrieve data from weather and adds in table
@@ -36,7 +43,7 @@ class DatabaseSeeder extends Seeder
      *
      * @param array $data Data of locale to be saved
      *
-     * @return \App\Models\Locale
+     * @return \App\Models\Locale|\Illuminate\Database\Eloquent\Collection<\App\Models\Locale>
      */
     private function storeLocale(array $data)
     {
@@ -61,6 +68,8 @@ class DatabaseSeeder extends Seeder
      * Save weather into database
      *
      * @param array $data Data of weather to be saved
+     *
+     * @return void
      */
     private function storeWeather(array $data, int $localeId)
     {

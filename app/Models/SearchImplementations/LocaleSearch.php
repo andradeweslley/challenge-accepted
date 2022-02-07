@@ -11,11 +11,11 @@ use Illuminate\Support\Arr;
 class LocaleSearch implements SearchRepository
 {
     /** @var \Elasticsearch\Client */
-    private $elasticsearch;
+    private $elasticSearch;
 
-    public function __construct(Client $elasticsearch)
+    public function __construct(Client $elasticSearch)
     {
-        $this->elasticsearch = $elasticsearch;
+        $this->elasticSearch = $elasticSearch;
     }
 
     public function search(string $query = ''): Collection
@@ -29,7 +29,7 @@ class LocaleSearch implements SearchRepository
     {
         $model = new Locale();
 
-        return $this->elasticsearch->search([
+        return $this->elasticSearch->search([
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
             'body' => [

@@ -6,20 +6,46 @@ use Elasticsearch\Client;
 
 class ElasticSearchObserver
 {
-    private $elasticsearchClient;
+    /**
+     * @var \Elasticsearch\Client
+     */
+    private $elasticSearch;
 
-    public function __construct(Client $elasticsearchClient)
+    public function __construct(Client $elasticSearch)
     {
-        $this->elasticsearchClient = $elasticsearchClient;
+        $this->elasticSearch = $elasticSearch;
     }
 
+    /**
+     * Save resource in ElasticSearch when is saved in database
+     * 
+     * @param mixed $model
+     * 
+     * @return void
+     */
     public function saved($model)
     {
-        $model->elasticSearchIndex($this->elasticsearchClient);
+        $this->elasticSearch->index([
+            'index' => $model->getSearchIndex(),
+            'type' => $model->getSearchType(),
+            'id' => $model->getKey(),
+            'body' => $model->toSearchArray(),
+        ]);
     }
 
+    /**
+     * Deletes resource in ElasticSearch when is deleted in database
+     * 
+     * @param mixed $model
+     * 
+     * @return void
+     */
     public function deleted($model)
     {
-        $model->elasticSearchDelete($this->elasticsearchClient);
+        $this->elasticSearch->delete([
+            'index' => $model->getSearchIndex(),
+            'type' => $model->getSearchType(),
+            'id' => $model->getKey(),
+        ]);
     }
 }

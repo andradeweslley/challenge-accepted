@@ -48,6 +48,11 @@ class Weather extends Model
         'rain_precipitation',
     ];
 
+    /**
+     * Relation with Locales
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function locale()
     {
         return $this->belongsTo(Locale::class);

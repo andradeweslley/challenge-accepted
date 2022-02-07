@@ -4,11 +4,13 @@ namespace App\Search;
 
 trait Searchable
 {
+    /** @return string */
     public function getSearchIndex()
     {
         return $this->getTable();
     }
 
+    /** @return string */
     public function getSearchType()
     {
         if (property_exists($this, 'useSearchType')) {
@@ -18,6 +20,7 @@ trait Searchable
         return $this->getTable();
     }
 
+    /** @return array */
     public function toSearchArray()
     {
         // By having a custom method that transforms the model
@@ -26,6 +29,7 @@ trait Searchable
         return $this->toArray();
     }
 
+    /** @return void */
     public static function bootSearchable()
     {
         // This makes it easy to toggle the search feature flag

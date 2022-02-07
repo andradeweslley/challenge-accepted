@@ -182,6 +182,11 @@
     </properties>
   </rule>
 
+  <rule ref="SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter">
+        <!-- Don't check if parameter was not used. This happens because override of JsonResource -->
+        <exclude-pattern>*/app/Http/Resources/*.php</exclude-pattern>
+    </rule>
+
   <!-- Checks if references to \Throwable interface was made, instead of references to concrete class \Exception -->
   <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException">
     <type>warning</type>
