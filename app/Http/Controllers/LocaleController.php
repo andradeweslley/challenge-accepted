@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\LocaleResource;
 use App\Models\Locale;
 use App\Repository\SearchRepository;
+use Illuminate\Http\Request;
 
 class LocaleController extends Controller
 {
@@ -13,10 +14,10 @@ class LocaleController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(SearchRepository $searchRepository)
+    public function index(SearchRepository $searchRepository, Request $request)
     {
-        $locales = request()->has('q')
-            ? $searchRepository->search(request('q'))
+        $locales = $request->has('q') && !empty($request->get('q'))
+            ? $searchRepository->search(strtolower($request->get('q')))
             : Locale::all();
 
         return LocaleResource::collection($locales);

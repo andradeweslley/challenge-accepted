@@ -3,9 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Locale;
-use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
-use Exception;
 use Illuminate\Console\Command;
 
 class ReIndexCommand extends Command

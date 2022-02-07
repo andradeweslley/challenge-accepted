@@ -34,9 +34,13 @@ class LocaleSearch implements SearchRepository
             'type' => $model->getSearchType(),
             'body' => [
                 'query' => [
-                    'prefix' => [
-                        'name' => $query,
+                    'query_string' => [
+                        'fields' => ['name'],
+                        'query' => "\"$query\"",
                     ],
+                    // 'prefix' => [
+                    //     'name' => "\"$query\"",
+                    // ],
                 ],
             ],
         ]);
