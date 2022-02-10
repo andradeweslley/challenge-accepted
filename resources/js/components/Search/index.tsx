@@ -8,8 +8,6 @@ interface State {
 }
 
 const loadOptions = (inputValue: string, callback: any) => {
-    console.log('on load options function')
-
     axios.get(`http://localhost:8000/api/v1/locales?q=${inputValue}`)
         .then((response) => {
             callback(response.data.map((locale: any) => {
@@ -34,8 +32,11 @@ export default class Search extends Component<{}, State> {
                 <AsyncSelect
                     cacheOptions
                     loadOptions={loadOptions}
-                    defaultOptions
+                    defaultOptions={false}
                     onInputChange={this.handleInputChange}
+                    loadingMessage={() => {return 'Carregando'}}
+                    noOptionsMessage={() => {return 'Nenhuma cidade encontrada'}}
+                    placeholder={'Digite uma cidade para busca'}
                 />
             </div>
         );

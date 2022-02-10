@@ -14,9 +14,9 @@ class WeatherRequest extends FormRequest
     public function rules()
     {
         return [
-            'period' => 'required|array',
-            'period.begin' => 'required|date_format:Y-m-d',
-            'period.end' => 'required|date_format:Y-m-d',
+            'period' => 'array',
+            'period.begin' => 'date_format:Y-m-d',
+            'period.end' => 'date_format:Y-m-d',
 
             'locale' => 'required|integer',
         ];

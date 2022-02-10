@@ -29,6 +29,8 @@ class LocaleSearch implements SearchRepository
     {
         $model = new Locale();
 
+        $query = trim(str_replace(' ', ' ', $query));
+
         return $this->elasticSearch->search([
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
@@ -37,6 +39,7 @@ class LocaleSearch implements SearchRepository
                     'query_string' => [
                         'fields' => ['name'],
                         'query' => "\"$query\"",
+                        // 'query' => "$query*",
                     ],
                     // 'prefix' => [
                     //     'name' => "\"$query\"",

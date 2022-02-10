@@ -27,13 +27,16 @@ class WeatherController extends Controller
         }
 
         // Coloca o período em uma variável para melhor trativa
-        $period = $request->input('period', []);
+        $period = $request->input('period', [
+            'begin' => '2017-02-01', 
+            'end' => '2017-02-07',
+        ]);
 
         // Encontra a previsão para o período solicitado
         $weather = Weather::where('locale_id', $locale->id)
             ->whereBetween('date', [$period['begin'], $period['end']])
             ->get();
 
-        return new WeatherCollection($weather, $locale);
+        return new WeatherCollection($weather, $locale, $period);
     }
 }

@@ -3976,6 +3976,52 @@ var App_1 = __importDefault(__webpack_require__(/*! ./components/App */ "./resou
 "use strict";
 
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -3986,21 +4032,32 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-__webpack_require__(/*! ../assets/css/clima-tempo.css */ "./resources/js/assets/css/clima-tempo.css"); // import logo from '../assets/images/logo-white.png';
-
+__webpack_require__(/*! ../assets/css/clima-tempo.css */ "./resources/js/assets/css/clima-tempo.css");
 
 var Search_1 = __importDefault(__webpack_require__(/*! ./Search */ "./resources/js/components/Search/index.tsx"));
 
 var App = function App() {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      locale = _ref2[0],
+      setLocale = _ref2[1];
+
+  var changeLocale = function changeLocale(locale) {
+    setLocale(locale);
+  };
+
   return react_1["default"].createElement("div", {
     className: "container-fluid p-0"
   }, react_1["default"].createElement("div", {
     className: "row logo p-4 m-0 text-center"
   }, react_1["default"].createElement("div", {
     className: "col-md-12"
-  })), react_1["default"].createElement("div", {
+  }, react_1["default"].createElement("img", {
+    src: (__webpack_require__(/*! ../assets/images/logo-white.png */ "./resources/js/assets/images/logo-white.png")["default"]),
+    alt: "logo"
+  }))), react_1["default"].createElement("div", {
     className: "row search-locales p-4 m-0"
   }, react_1["default"].createElement("div", {
     className: "col-md-12"
@@ -4103,7 +4160,6 @@ var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/a
 var async_1 = __importDefault(__webpack_require__(/*! react-select/async */ "./node_modules/react-select/async/dist/react-select.esm.js"));
 
 var loadOptions = function loadOptions(inputValue, callback) {
-  console.log('on load options function');
   axios_1["default"].get("http://localhost:8000/api/v1/locales?q=".concat(inputValue)).then(function (response) {
     callback(response.data.map(function (locale) {
       return {
@@ -4148,8 +4204,15 @@ var Search = /*#__PURE__*/function (_react_1$Component) {
       return react_1["default"].createElement("div", null, react_1["default"].createElement("pre", null, "inputValue: \"", this.state.inputValue, "\""), react_1["default"].createElement(async_1["default"], {
         cacheOptions: true,
         loadOptions: loadOptions,
-        defaultOptions: true,
-        onInputChange: this.handleInputChange
+        defaultOptions: false,
+        onInputChange: this.handleInputChange,
+        loadingMessage: function loadingMessage() {
+          return 'Carregando';
+        },
+        noOptionsMessage: function noOptionsMessage() {
+          return 'Nenhuma cidade encontrada';
+        },
+        placeholder: 'Digite uma cidade para busca'
       }));
     }
   }]);
@@ -4258,6 +4321,21 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/logo-white.png":
+/*!***************************************************!*\
+  !*** ./resources/js/assets/images/logo-white.png ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/logo-white.png?89500361fe726f266ea5fb9ebe9a7c70");
 
 /***/ }),
 

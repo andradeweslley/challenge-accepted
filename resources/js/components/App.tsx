@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react';
 
 import '../assets/css/clima-tempo.css';
 
-// import logo from '../assets/images/logo-white.png';
 import Search from './Search';
 
 const App = () => {
+    const [locale, setLocale] = useState();
+
+    const changeLocale = (locale: any) => {
+        setLocale(locale)
+    }
+
     return (
         <div className="container-fluid p-0">
             <div className="row logo p-4 m-0 text-center">
                 <div className="col-md-12">
-                    {/* <img src={logo} alt="logo" /> */}
+                    <img src={require('../assets/images/logo-white.png').default} alt="logo" />
                 </div>
             </div>
             <div className="row search-locales p-4 m-0">
